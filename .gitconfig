@@ -51,3 +51,6 @@
   renames = copies
 [rerere]
   enabled = true
+[user]
+	name = Alex Sloan
+	email = alex.sloan@isocket.com
