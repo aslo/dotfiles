@@ -12,7 +12,7 @@ set nocompatible
 set t_Co=256
 set background=dark
 syntax on
-colorscheme Tomorrow-Night
+colorscheme molotov
 " }}}
 
 " Mapleader {{{
@@ -220,6 +220,8 @@ augroup general_config
     call setreg('/', old_query)
   endfunction " }}}
   noremap <leader>ss :call StripWhitespace ()<CR>
+  autocmd FileType c,cpp,javahp,rubyython,coffee,js,json autocmd BufWritePre <buffer> :call <SID>StripWhitespace()
+
   " }}}
 
   " Join lines and restore cursor location (J) {{{
@@ -645,6 +647,8 @@ Plug 'wavded/vim-stylus',      { 'for': 'stylus' }
 Plug 'wlangstroth/vim-racket'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
+Plug 'solarnz/thrift.vim'
+Plug 'groenewege/vim-less'
 
 call plug#end()
 " }}}
