@@ -109,14 +109,14 @@ set wrapscan " Searches wrap around end of file
 
 " FastEscape {{{
 " Speed up transition from modes
-if ! has('gui_running')
-  set ttimeoutlen=10
-  augroup FastEscape
-    autocmd!
-    au InsertEnter * set timeoutlen=0
-    au InsertLeave * set timeoutlen=1000
-  augroup END
-endif
+" if ! has('gui_running')
+"   set ttimeoutlen=10
+"   augroup FastEscape
+"     autocmd!
+"     au InsertEnter * set timeoutlen=0
+"     au InsertLeave * set timeoutlen=1000
+"   augroup END
+" endif
 " }}}
 
 " General {{{
@@ -158,6 +158,10 @@ augroup general_config
   nnoremap ' `
   " }}}
 
+  " Remap the escape key {{{
+  inoremap kj <ESC>
+  " }}}
+  "
   " Hard to type things {{{
   iabbrev >> →
   iabbrev << ←
