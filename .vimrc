@@ -109,14 +109,14 @@ set wrapscan " Searches wrap around end of file
 
 " FastEscape {{{
 " Speed up transition from modes
-" if ! has('gui_running')
-"   set ttimeoutlen=10
-"   augroup FastEscape
-"     autocmd!
-"     au InsertEnter * set timeoutlen=0
-"     au InsertLeave * set timeoutlen=1000
-"   augroup END
-" endif
+ if ! has('gui_running')
+   set ttimeoutlen=10
+   augroup FastEscape
+     autocmd!
+     au InsertEnter * set timeoutlen=250
+     au InsertLeave * set timeoutlen=1000
+   augroup END
+ endif
 " }}}
 
 " General {{{
@@ -224,7 +224,7 @@ augroup general_config
     call setreg('/', old_query)
   endfunction " }}}
   noremap <leader>ss :call StripWhitespace ()<CR>
-  autocmd FileType c,cpp,javahp,rubyython,coffee,js,json autocmd BufWritePre <buffer> :call <SID>StripWhitespace()
+  autocmd FileType c,cpp,javahp,rubyython,coffee,js,json autocmd BufWritePre <buffer> :call StripWhitespace()
 
   " }}}
 
@@ -273,6 +273,9 @@ augroup buffer_control
   map <Leader>ls :buffers<CR>
   map gb :bnext<CR>
   map gB :bprev<CR>
+
+  nmap <Tab> gb
+  nmap <S-Tab> gB
   " }}}
 
   " Jump to buffer number (<N>gb) {{{
