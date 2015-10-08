@@ -2,7 +2,6 @@
 
 default_username='alex'
 
-
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
   export TERM=gnome-256color
 elif infocmp xterm-256color >/dev/null 2>&1; then
@@ -12,30 +11,36 @@ fi
 if tput setaf 1 &> /dev/null; then
   tput sgr0
   if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
-    MAGENTA=$(tput setaf 9)
-    ORANGE=$(tput setaf 172)
-    GREEN=$(tput setaf 190)
-    PURPLE=$(tput setaf 141)
-    WHITE=$(tput setaf 256)
-  else
-    MAGENTA=$(tput setaf 5)
-    ORANGE=$(tput setaf 4)
-    GREEN=$(tput setaf 2)
-    PURPLE=$(tput setaf 1)
-    WHITE=$(tput setaf 7)
-  fi
-  BOLD=$(tput bold)
-  RESET=$(tput sgr0)
-else
-  MAGENTA="\033[1;31m"
-  ORANGE="\033[1;33m"
-  GREEN="\033[1;32m"
-  PURPLE="\033[1;35m"
-  WHITE="\033[1;37m"
-  BOLD=""
-  RESET="\033[m"
-fi
+    tput sgr0 # reset colors
 
+    bold=$(tput bold)
+    reset=$(tput sgr0)
+
+    # Solarized colors
+    # (https://github.com/altercation/solarized/tree/master/iterm2-colors-solarized#the-values)
+    black=$(tput setaf 0)
+    blue=$(tput setaf 33)
+    cyan=$(tput setaf 37)
+    green=$(tput setaf 64)
+    orange=$(tput setaf 166)
+    purple=$(tput setaf 125)
+    red=$(tput setaf 124)
+    white=$(tput setaf 15)
+    yellow=$(tput setaf 136)
+  fi
+else
+  bold=""
+  reset="\e[0m"
+
+  black="\e[1;30m"
+  blue="\e[1;34m"
+  cyan="\e[1;36m"
+  green="\e[1;32m"
+  orange="\e[1;33m"
+  purple="\e[1;35m"
+  red="\e[1;31m"
+  white="\e[1;37m"
+fi
 
 # Fastest possible way to check if repo is dirty. a savior for the WebKit repo.
 function parse_git_dirty() {
@@ -46,9 +51,22 @@ function parse_git_branch() {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
 
+function parse_git_stash() {
+  num_stashed=0
+  stash_file="$( git rev-parse --git-dir )/logs/refs/stash"
+  if [[ -e "${stash_file}" ]]; then
+    while IFS='' read -r wcline || [[ -n "$wcline" ]]; do
+      ((num_stashed++))
+    done < ${stash_file}
+  fi
+  if [[ num_stashed -gt 0 ]]; then
+    echo "${GREEN}⚑$num_stashed" 
+  fi
+}
+
 # Only show username/host if not default
 function usernamehost() {
   if [ $USER != $default_username ]; then echo "${MAGENTA}$USER ${WHITE}at ${ORANGE}$HOSTNAME $WHITEin "; fi
 }
 
-PS1="\[\e]2;$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]${BOLD}\$(usernamehost)\[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n\$ \[$RESET\]"
+PS1="\[\e]2;$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]\$(usernamehost)\[$green\]\w\[$white\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$purple\]\$(parse_git_branch)\[$orange\] \$(parse_git_stash)\[$white\]\n\$ \[$reset\]"
