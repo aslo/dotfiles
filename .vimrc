@@ -9,10 +9,10 @@ set nocompatible
 " }}}
 
 " Syntax highlighting {{{
-set t_Co=256
+let g:solarized_termcolors=256
+syntax enable
 set background=dark
-syntax on
-colorscheme molotov
+colorscheme solarized
 " }}}
 
 " Mapleader {{{
@@ -35,8 +35,7 @@ set encoding=utf-8 nobomb " BOM often causes trouble
 set esckeys " Allow cursor keys in insert mode
 set expandtab " Expand tabs to spaces
 set foldcolumn=0 " Column to show folds
-set foldenable " Enable folding
-set foldlevel=0 " Close all folds by default
+set nofoldenable " Enable folding
 set foldmethod=syntax " Syntax are used to specify folds
 set foldminlines=0 " Allow folding single lines
 set foldnestmax=5 " Set max fold nesting level
@@ -170,11 +169,11 @@ augroup general_config
   iabbrev aa λ
   " }}}
 
-  " Toggle show tabs and trailing spaces (,c) {{{
-  set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
-  set fcs=fold:-
-  nnoremap <silent> <leader>c :set nolist!<CR>
-  " }}}
+  " " Toggle show tabs and trailing spaces (,c) {{{
+  " set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
+  " set fcs=fold:-
+  " nnoremap <silent> <leader>c :set nolist!<CR>
+  " " }}}
 
   " Clear last search (,qs) {{{
   map <silent> <leader>qs <Esc>:noh<CR>
@@ -244,9 +243,10 @@ augroup general_config
   " }}}
 
   " Relative numbers {{{
-  set relativenumber " Use relative line numbers. Current line is still in status bar.
-  au BufReadPost,BufNewFile * set relativenumber
+  " set relativenumber " Use relative line numbers. Current line is still in status bar.
+  " au BufReadPost,BufNewFile * set relativenumber
   " }}}
+  "
 augroup END
 " }}}
 
@@ -258,6 +258,13 @@ augroup nerd_commenter
   let NERDCompactSexyComs=1
   let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
 augroup END
+" }}}
+
+
+" NERDTree {{{
+augroup nerd_tree
+  map <C-N> :NERDTree<CR>
+  let NERDTreeShowHidden=1
 " }}}
 
 " Buffers {{{
@@ -274,8 +281,8 @@ augroup buffer_control
   map gb :bnext<CR>
   map gB :bprev<CR>
 
-  nmap <Tab> gb
-  nmap <S-Tab> gB
+  nmap <Leader><Tab> gb
+  nmap <Leader><S-Tab> gB
   " }}}
 
   " Jump to buffer number (<N>gb) {{{
@@ -391,22 +398,22 @@ augroup END
 " }}}
 
 " Word Processor Mode {{{
-augroup word_processor_mode
-  autocmd!
+" augroup word_processor_mode
+  " autocmd!
 
-  function! WordProcessorMode() " {{{
-    setlocal formatoptions=t1
-    map j gj
-    map k gk
-    setlocal smartindent
-    setlocal spell spelllang=en_ca
-    setlocal noexpandtab
-    setlocal wrap
-    setlocal linebreak
-    Goyo 100
-  endfunction " }}}
-  com! WP call WordProcessorMode()
-augroup END
+  " function! WordProcessorMode() " {{{
+    " setlocal formatoptions=t1
+    " map j gj
+    " map k gk
+    " setlocal smartindent
+    " setlocal spell spelllang=en_ca
+    " setlocal noexpandtab
+    " setlocal wrap
+    " setlocal linebreak
+    " Goyo 100
+  " endfunction " }}}
+  " com! WP call WordProcessorMode()
+" augroup END
 " }}}
 
 " Restore Cursor Position {{{
@@ -611,6 +618,7 @@ augroup syntastic_config
   let g:syntastic_error_symbol = '✗'
   let g:syntastic_warning_symbol = '⚠'
   let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+  let g:syntastic_coffee_coffeelint_args = "--csv --file coffeelint.json"
 augroup END
 " }}}
 
@@ -620,28 +628,33 @@ augroup END
 " Load plugins {{{
 call plug#begin('~/.vim/plugged')
 
-Plug 'ap/vim-css-color'
 Plug 'bling/vim-airline'
 Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'guns/vim-clojure-static'
-Plug 'joker1007/vim-ruby-heredoc-syntax'
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/vim-emoji'
-Plug 'junegunn/goyo.vim'
-Plug 'kchmck/vim-coffee-script'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'msanders/snipmate.vim'
-Plug 'mustache/vim-mustache-handlebars'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'oplatek/Conque-Shell'
-Plug 'pangloss/vim-javascript'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-fugitive'
+
+" snippet plugin and dependencies
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+
+" language-specific
+Plug 'groenewege/vim-less'
+Plug 'ap/vim-css-color'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'pangloss/vim-javascript'
+Plug 'kchmck/vim-coffee-script'
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'thoughtbot/vim-rspec'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-haml'
 Plug 'tpope/vim-markdown',     { 'for': 'markdown' }
 Plug 'tpope/vim-rails'
@@ -651,11 +664,8 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
 Plug 'vim-scripts/jade.vim',   { 'for': 'jade' }
 Plug 'wavded/vim-stylus',      { 'for': 'stylus' }
-Plug 'wlangstroth/vim-racket'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-notes'
 Plug 'solarnz/thrift.vim'
-Plug 'groenewege/vim-less'
+Plug 'lervag/vimtex'
 
 call plug#end()
 " }}}

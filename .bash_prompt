@@ -53,14 +53,14 @@ function parse_git_branch() {
 
 function parse_git_stash() {
   num_stashed=0
-  stash_file="$( git rev-parse --git-dir )/logs/refs/stash"
+  stash_file="$( git rev-parse --git-dir 2> /dev/null)/logs/refs/stash"
   if [[ -e "${stash_file}" ]]; then
     while IFS='' read -r wcline || [[ -n "$wcline" ]]; do
       ((num_stashed++))
     done < ${stash_file}
   fi
   if [[ num_stashed -gt 0 ]]; then
-    echo "${GREEN}⚑$num_stashed" 
+    echo "⚑$num_stashed"
   fi
 }
 

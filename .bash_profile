@@ -30,3 +30,7 @@ export LANG="en_US"
 # You could just use `-g` instead, but I like being explicit
 complete -W "NSGlobalDomain" defaults
 
+ulimit -n 65536
+ulimit -u 2048
+
+eval "$(jenv init -)"
