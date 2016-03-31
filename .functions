@@ -46,20 +46,22 @@ function new_tab() {
       -e "end tell" > /dev/null
 }
 
-# launch development for a repository
-function launch_dev() {
-  for REPO in "$@"
-  do
-    if [ $REPO = "jservices" ]; then
-      new_tab "jservices" "cd ~/code/isocket/jservices; git pull && git submodule update && ./scripts/run.sh &"
-    elif [ $REPO = "fovea" ]; then
-      new_tab "fovea" "cd ~/code/isocket/fovea; nvm use && git pull && git submodule update && grunt watch &"
-    elif [ $REPO = "iris" ]; then
-      new_tab "iris" "cd ~/code/isocket/iris; nvm use && git pull && git submodule update && npm install && bower install && grunt watch &"
-    elif [ $REPO = "sclera" ]; then
-      new_tab "sclera" "cd ~/code/isocket/sclera; nvm use && git pull && git submodule update && npm install && bower install && grunt watch &"
-    else
-      echo "no repo config available for $REPO"
-    fi
-  done
+# send an osx system alert
+function alert() {
+  title=$1
+  message=$2
+
+  terminal-notifier -help >/dev/null 2>&1 || { echo >&2 "I require terminal-notifier but it is not installed. Try 'sudo gem install terminal-notifier' " ; return 1 ; }
+
+  if [ -z "$message" ] && [ -z "$title" ]; then
+    echo "Usage: 'alert [title] message'"
+    return 1;
+  fi
+
+  if [ -z "$message" ]; then
+    terminal-notifier -sound default -message "${title}" 
+  else 
+    terminal-notifier -sound default -message "${message}" -title "${title}"
+  fi
 }
+
