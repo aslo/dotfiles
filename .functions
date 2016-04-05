@@ -59,9 +59,17 @@ function alert() {
   fi
 
   if [ -z "$message" ]; then
-    terminal-notifier -sound default -message "${title}" 
+    terminal-notifier -sound Purr -message "${title}" 
   else 
-    terminal-notifier -sound default -message "${message}" -title "${title}"
+    terminal-notifier -sound Purr -message "${message}" -title "${title}"
   fi
 }
 
+# Perform docker-machine initial setup
+function docker-init() {
+  name=$1
+  docker-machine start $name
+  eval "$(docker-machine env $name)"
+  export DOCKER_OPTS="-H $DOCKER_HOST --tls --tlskey $DOCKER_CERT_PATH/server-key.pem --tlscert $DOCKER_CERT_PATH/server.pem --tlsverify --tlscacert $DOCKER_CERT_PATH/ca.pem"
+  alias docker="docker $DOCKER_OPTS"
+}
