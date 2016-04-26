@@ -59,8 +59,8 @@ function alert() {
   fi
 
   if [ -z "$message" ]; then
-    terminal-notifier -sound Purr -message "${title}" 
-  else 
+    terminal-notifier -sound Purr -message "${title}"
+  else
     terminal-notifier -sound Purr -message "${message}" -title "${title}"
   fi
 }
