@@ -9,10 +9,9 @@ set nocompatible
 " }}}
 
 " Syntax highlighting {{{
-let g:solarized_termcolors=256
 syntax enable
 set background=dark
-colorscheme solarized
+colorscheme hybrid
 " }}}
 
 " Mapleader {{{
