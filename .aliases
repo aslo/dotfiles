@@ -3,8 +3,6 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-alias sudo='sudo '
-
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
   colorflag="--color"
@@ -37,12 +35,11 @@ alias c='pygmentize -O style=monokai -f console256 -g'
 alias git='hub'
 alias gb='git branch -v'
 alias gst='git status -sb'
-alias gc='git commit -am'
+alias gc='git commit'
 alias gf='git fetch'
 alias gl='git pull'
 alias gp='git push'
 alias gco='git checkout'
-alias git-cleanup='. ~/git-cleanup.sh'
 
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
@@ -70,3 +67,4 @@ alias ia='open -a "iA Writer"'
 
 # typos
 alias claer="clear"
+
