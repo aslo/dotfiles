@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This has to be run from master
 git checkout master
 
