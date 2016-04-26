@@ -30,6 +30,7 @@ set backspace=indent,eol,start
 set cursorline " Highlight current line
 set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
+set diffopt+=vertical
 set encoding=utf-8 nobomb " BOM often causes trouble
 set esckeys " Allow cursor keys in insert mode
 set expandtab " Expand tabs to spaces
@@ -93,7 +94,7 @@ set wildchar=<TAB> " Character for CLI expansion (TAB-completion)
 set wildignore+=.DS_Store
 set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
 set wildignore+=*/bower_components/*,*/node_modules/*
-set wildignore+=*/smarty/*,*/vendor/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/dist/*
+set wildignore+=*/smarty/*,*/vendor/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/dist/*
 set wildmenu " Hitting TAB in command mode will show possible completions above command line
 set wildmode=list:longest " Complete only until point of ambiguity
 set winminheight=0 " Allow splits to be reduced to a single line
@@ -168,25 +169,15 @@ augroup general_config
   iabbrev aa λ
   " }}}
 
-  " " Toggle show tabs and trailing spaces (,c) {{{
-  " set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
-  " set fcs=fold:-
-  " nnoremap <silent> <leader>c :set nolist!<CR>
-  " " }}}
+  " Toggle show tabs and trailing spaces (,c) {{{
+  set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
+  set fcs=fold:-
+  nnoremap <silent> <leader>c :set nolist!<CR>
+  " }}}
 
   " Clear last search (,qs) {{{
   map <silent> <leader>qs <Esc>:noh<CR>
-  " map <silent> <leader>qs <Esc>:let @/ = ""<CR>
-  " }}}
-
-  " Vim on the iPad {{{
-  if &term == "xterm-ipad"
-    nnoremap <Tab> <Esc>
-    vnoremap <Tab> <Esc>gV
-    onoremap <Tab> <Esc>
-    inoremap <Tab> <Esc>`^
-    inoremap <Leader><Tab> <Tab>
-  endif
+  map <silent> <leader>qs <Esc>:let @/ = ""<CR>
   " }}}
 
   " Remap keys for auto-completion menu {{{
@@ -195,7 +186,7 @@ augroup general_config
   inoremap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
   " }}}
 
-  " Paste toggle (,p) {{{
+  " Paste toggle (,p) {{{   
   set pastetoggle=<leader>p
   map <leader>p :set invpaste paste?<CR>
   " }}}
@@ -242,8 +233,8 @@ augroup general_config
   " }}}
 
   " Relative numbers {{{
-  " set relativenumber " Use relative line numbers. Current line is still in status bar.
-  " au BufReadPost,BufNewFile * set relativenumber
+  set relativenumber " Use relative line numbers. Current line is still in status bar.
+  au BufReadPost,BufNewFile * set relativenumber
   " }}}
   "
 augroup END
@@ -395,26 +386,7 @@ augroup highlight_interesting_word
   " }}}
 augroup END
 " }}}
-
-" Word Processor Mode {{{
-" augroup word_processor_mode
-  " autocmd!
-
-  " function! WordProcessorMode() " {{{
-    " setlocal formatoptions=t1
-    " map j gj
-    " map k gk
-    " setlocal smartindent
-    " setlocal spell spelllang=en_ca
-    " setlocal noexpandtab
-    " setlocal wrap
-    " setlocal linebreak
-    " Goyo 100
-  " endfunction " }}}
-  " com! WP call WordProcessorMode()
-" augroup END
-" }}}
-
+"
 " Restore Cursor Position {{{
 augroup restore_cursor
   autocmd!
@@ -521,14 +493,6 @@ augroup filetype_ruby
 augroup END
 " }}}
 
-" }}}
-" XML {{{
-augroup filetype_xml
-  autocmd!
-  au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
-augroup END
-" }}}
-
 " ZSH {{{
 augroup filetype_zsh
   autocmd!
@@ -549,12 +513,14 @@ augroup airline_config
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#fnamecollapse = 0
   let g:airline#extensions#tabline#fnamemod = ':t'
+  let g:airline_theme = 'hybrid'
 augroup END
 " }}}
 
 " CtrlP.vim {{{
 augroup ctrlp_config
   autocmd!
+  let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
   let g:ctrlp_clear_cache_on_exit = 0 " Do not clear filenames cache, to improve CtrlP startup
   let g:ctrlp_lazy_update = 350 " Set delay to prevent extra search
   let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' } " Use python fuzzy matcher for better performance
@@ -627,7 +593,8 @@ augroup END
 " Load plugins {{{
 call plug#begin('~/.vim/plugged')
 
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'junegunn/vim-easy-align'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -650,12 +617,10 @@ Plug 'honza/vim-snippets'
 Plug 'groenewege/vim-less'
 Plug 'ap/vim-css-color'
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'pangloss/vim-javascript'
 Plug 'kchmck/vim-coffee-script'
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
-Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-haml'
-Plug 'tpope/vim-markdown',     { 'for': 'markdown' }
+Plug 'plasticboy/vim-markdown',     { 'for': 'markdown' }
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -663,7 +628,6 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
 Plug 'vim-scripts/jade.vim',   { 'for': 'jade' }
 Plug 'wavded/vim-stylus',      { 'for': 'stylus' }
-Plug 'solarnz/thrift.vim'
 Plug 'lervag/vimtex'
 
 call plug#end()
