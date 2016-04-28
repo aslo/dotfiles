@@ -30,7 +30,6 @@ set backspace=indent,eol,start
 set cursorline " Highlight current line
 set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
-set diffopt+=vertical
 set encoding=utf-8 nobomb " BOM often causes trouble
 set esckeys " Allow cursor keys in insert mode
 set expandtab " Expand tabs to spaces
@@ -142,8 +141,7 @@ augroup general_config
   " }}}
 
   " Sudo write (,W) {{{
-  noremap <leader>W :w !sudo tee %<CR>
-  " }}}
+  noremap <leader>W :w !sudo tee %<CR> " }}}
 
   " Get output of shell commands {{{
   command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
@@ -268,11 +266,9 @@ augroup buffer_control
   " Buffer navigation (,,) (gb) (gB) (,ls) {{{
   map <Leader>, <C-^>
   map <Leader>ls :buffers<CR>
-  map gb :bnext<CR>
-  map gB :bprev<CR>
 
-  nmap <Leader><Tab> gb
-  nmap <Leader><S-Tab> gB
+  nmap <Leader><Tab> :bnext<CR>
+  nmap <Leader><S-Tab> :bprev<CR>
   " }}}
 
   " Jump to buffer number (<N>gb) {{{
@@ -563,13 +559,6 @@ augroup easy_align_config
 augroup END
 " }}}
 
-" Notes.vim {{{
-augroup notes_config
-  autocmd!
-  let g:notes_directories = ['~/Dropbox/Notes']
-augroup END
-" }}}
-
 " RainbowParenthesis.vim {{{
 augroup rainbow_parenthesis_config
   autocmd!
@@ -583,7 +572,7 @@ augroup syntastic_config
   let g:syntastic_error_symbol = '✗'
   let g:syntastic_warning_symbol = '⚠'
   let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-  let g:syntastic_coffee_coffeelint_args = "--csv --file coffeelint.json"
+  let g:syntastic_coffee_coffeelint_args = "asdf"  "--csv --file coffeelint.json"
 augroup END
 " }}}
 
@@ -629,6 +618,7 @@ Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
 Plug 'vim-scripts/jade.vim',   { 'for': 'jade' }
 Plug 'wavded/vim-stylus',      { 'for': 'stylus' }
 Plug 'lervag/vimtex'
+Plug 'solarnz/thrift.vim'
 
 call plug#end()
 " }}}
