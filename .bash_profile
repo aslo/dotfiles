@@ -7,13 +7,17 @@ unset file
 
 # init z
 # https://github.com/rupa/z
-. ~/z/z.sh
+[[ -s $HOME/z/z.sh ]] && . $HOME/z/z.sh
 
 # node version manager
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
 [[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
+# ruby version manager
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+# jenv
+if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 
 if [ -f `brew --prefix`/etc/bash_completion ]; then
     . `brew --prefix`/etc/bash_completion
@@ -33,4 +37,3 @@ complete -W "NSGlobalDomain" defaults
 ulimit -n 65536
 ulimit -u 2048
 
-eval "$(jenv init -)"
