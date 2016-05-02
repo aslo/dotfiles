@@ -211,7 +211,7 @@ augroup general_config
     call setreg('/', old_query)
   endfunction " }}}
   noremap <leader>ss :call StripWhitespace ()<CR>
-  autocmd FileType c,cpp,javahp,rubyython,coffee,js,json autocmd BufWritePre <buffer> :call StripWhitespace()
+  autocmd FileType c,cpp,javahp,rubyython,coffee,js,json,java autocmd BufWritePre <buffer> :call StripWhitespace()
 
   " }}}
 
