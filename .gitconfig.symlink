@@ -46,8 +46,4 @@
   renames = copies
 [rerere]
   enabled = true
-[user]
-	name = Alex Sloan
-	email = alex.sloan@isocket.com
-[hub]
-	host = github.rp-core.com
+
