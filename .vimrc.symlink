@@ -576,6 +576,11 @@ augroup syntastic_config
 augroup END
 " }}}
 
+" fugitive.vim {{{
+augroup fugitive
+  nmap <Leader>gst :Gstatus<Enter> 
+augroup END
+" }}}
 
 " Plugins -------------------------------------------------------------
 
