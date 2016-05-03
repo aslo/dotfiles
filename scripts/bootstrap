@@ -141,10 +141,10 @@ setup_gitconfig
 install_dotfiles
 
 # install homebrew
-# $DOTFILES_ROOT/scripts/install_homebrew
+$DOTFILES_ROOT/scripts/install_homebrew
 
 # install all other dependencies
-# $DOTFILES_ROOT/scripts/update_dependencies
+$DOTFILES_ROOT/scripts/update_dependencies
 
 echo ''
 echo '  All installed!'
