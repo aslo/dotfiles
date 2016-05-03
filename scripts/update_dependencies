@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# update vim plugins
+vim -c ":PlugInstall | :qa”
+
+# update homebrew
 brew update
 
 # Run Homebrew through the Brewfile

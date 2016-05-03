@@ -43,7 +43,7 @@ setup_gitconfig () {
     user ' - What is your github author email?'
     read -e git_authoremail
 
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
+    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" .gitconfig.local.symlink.example > .gitconfig.local.symlink
 
     success 'gitconfig'
   fi
@@ -132,19 +132,19 @@ install_dotfiles () {
 
   for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
   do
-    dst="$HOME/.$(basename "${src%.*}")"
+    dst="$HOME/$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
 }
 
-setup_gitconfig
+# setup_gitconfig
 install_dotfiles
 
 # install homebrew
-$DOTFILES_ROOT/scripts/install_homebrew
+# $DOTFILES_ROOT/scripts/install_homebrew
 
 # install all other dependencies
-$DOTFILES_ROOT/scripts/update_dependencies
+# $DOTFILES_ROOT/scripts/update_dependencies
 
 echo ''
 echo '  All installed!'
