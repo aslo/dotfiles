@@ -10,7 +10,7 @@ unset file
 [[ -s $HOME/z/z.sh ]] && . $HOME/z/z.sh
 
 # node version manager
-[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
+[[ -s "$(brew --prefix nvm)/nvm.sh" ]] && . $"$(brew --prefix nvm)/nvm.sh"
 [[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
 # ruby version manager
