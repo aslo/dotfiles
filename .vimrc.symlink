@@ -4,6 +4,10 @@
 
 " Preamble {{{
 
+" Required for background colors to work nicely in tmux {{{
+set t_ut=
+" }}}
+
 " Make vim more useful {{{
 set nocompatible
 " }}}
