@@ -1,6 +1,6 @@
 # Dotfiles
 
-My config and settings files for OS X
+My config and settings files.
 
 Much of the config content originates from [Max Beatty](https://github.com/maxbeatty/dotfiles)'s dotfiles repo. Installation scripts influenced by [Zach Holman](https://github.com/holman/dotfiles).
 

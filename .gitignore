@@ -1,1 +1,5 @@
+# Gitignore file for the dotfiles repo
 .gitconfig.local.symlink
+.vim.symlink/undo
+.vim.symlink/swaps
+.vim.symlink/plugged

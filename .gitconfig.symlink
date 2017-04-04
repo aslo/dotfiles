@@ -4,7 +4,7 @@
 [alias]
   co = checkout
   df = diff --color --color-words --abbrev
-  lg = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+  lg = log --branches --graph --pretty=format:'%Cred%h%Creset -%C(magenta bold)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
 [help]
   autocorrect = 1
 [color]
@@ -39,14 +39,11 @@
   pushInsteadOf = "git://gist.github.com/"
 [url "git://gist.github.com/"]
   insteadOf = "gist:"
-# Any GitHub repo with my username should be checked out r/w by default
-# http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
-[url "git@github.com:aslo/"]
-  insteadOf = "git://github.com/aslo/"
 [push]
   default = tracking
 [diff]
   renames = copies
 [rerere]
   enabled = true
-
+[pull]
+  rebase = true

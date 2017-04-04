@@ -1,4 +1,4 @@
-export PATH=$HOME/.dotfiles/bin/:$PATH
+export PATH=$HOME/bin:$HOME/.dotfiles/bin/:$PATH
 
 # Make vim the default editor
 export EDITOR="vim"

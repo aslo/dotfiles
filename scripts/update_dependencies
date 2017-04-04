@@ -3,9 +3,12 @@
 # update vim plugins
 vim -c ":PlugInstall | :qa"
 
-# update homebrew
-brew update
-
-# Run Homebrew through the Brewfile
-echo "› brew bundle"
-brew bundle
+if test $(which brew); then
+  # update homebrew
+  brew update
+  # Run Homebrew through the Brewfile
+  echo "› brew bundle"
+  brew bundle
+else
+  echo 'Homebrew not installed - skipping installation of homebrew dependencies'
+fi

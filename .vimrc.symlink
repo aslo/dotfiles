@@ -160,7 +160,7 @@ augroup general_config
   " }}}
 
   " Remap the escape key {{{
-  inoremap kj <ESC>
+  "inoremap kj<ESC>
   " }}}
   "
   " Hard to type things {{{
@@ -604,6 +604,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
+Plug 'editorconfig/editorconfig-vim'
 
 " snippet plugin and dependencies
 Plug 'MarcWeber/vim-addon-mw-utils'

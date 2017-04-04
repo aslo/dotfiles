@@ -7,7 +7,7 @@ unset file
 
 # init z
 # https://github.com/rupa/z
-[[ -s $HOME/z/z.sh ]] && . $HOME/z/z.sh
+[[ -s $HOME/tools/z/z.sh ]] && . $HOME/tools/z/z.sh
 
 # homebrew-specific installs
 if hash brew 2>/dev/null; then
@@ -40,6 +40,5 @@ export LANG="en_US"
 # You could just use `-g` instead, but I like being explicit
 complete -W "NSGlobalDomain" defaults
 
-ulimit -n 65536
-ulimit -u 2048
-
+# Use vi-mode
+set -o vi
