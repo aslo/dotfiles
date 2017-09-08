@@ -46,4 +46,5 @@
 [rerere]
   enabled = true
 [pull]
-  rebase = true
+  rebase = false
+[credential]

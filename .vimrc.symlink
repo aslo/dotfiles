@@ -160,19 +160,11 @@ augroup general_config
   " }}}
 
   " Remap the escape key {{{
-  "inoremap kj<ESC>
+  inoremap jk <ESC>
   " }}}
-  "
-  " Hard to type things {{{
-  iabbrev >> →
-  iabbrev << ←
-  iabbrev ^^ ↑
-  iabbrev VV ↓
-  iabbrev aa λ
-  " }}}
-
+ 
   " Toggle show tabs and trailing spaces (,c) {{{
-  set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
+  set lcs=tab:»-,trail:»,nbsp:%
   set fcs=fold:-
   nnoremap <silent> <leader>c :set nolist!<CR>
   " }}}
