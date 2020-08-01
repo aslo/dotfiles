@@ -21,7 +21,7 @@ set expandtab
 set number
 
 " Search
-set hlsearc
+set hlsearch
 
 " Local directories {{{
 set backupdir=~/.vim/backups
