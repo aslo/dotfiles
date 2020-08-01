@@ -1,4 +1,0 @@
-#!/bin/bash
-
-encodedExp=$(echo $1 | python -c 'import sys,urllib;print urllib.quote(sys.stdin.read().strip())')
-open http://regexper.com/#$encodedExp

@@ -1,15 +1,12 @@
 # Dotfiles
 
-My config and settings files.
+My config and settings files for OSX and Linux.
 
-Much of the config content originates from [Max Beatty](https://github.com/maxbeatty/dotfiles)'s dotfiles repo. Installation scripts influenced by [Zach Holman](https://github.com/holman/dotfiles).
-
-## Installing
-
-Run this:
-
-```
+```bash
 git clone https://github.com/aslo/dotfiles .dotfiles 
 cd .dotfiles 
-scripts/bootstrap
+./scripts/bootstrap
 ```
+
+Inspired by [Max Beatty](https://github.com/maxbeatty/dotfiles) and [Zach Holman](https://github.com/holman/dotfiles).
+

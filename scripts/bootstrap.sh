@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/bin bash
 #
-# bootstrap installs things.
+# Creates local files and sets up symlinks for tracked dotfiles.
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd -P)
@@ -139,13 +139,6 @@ install_dotfiles () {
 
 setup_gitconfig
 install_dotfiles
-
-# install homebrew
-if [ "$(uname -s)" == "Darwin" ]; then
-  $DOTFILES_ROOT/scripts/install_homebrew
-else
-  echo 'Skipping homebrew installation.'
-fi
 
 # install all other dependencies
 $DOTFILES_ROOT/scripts/update_dependencies

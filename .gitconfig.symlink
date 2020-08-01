@@ -5,13 +5,11 @@
   co = checkout
   df = diff --color --color-words --abbrev
   lg = log --branches --graph --pretty=format:'%Cred%h%Creset -%C(magenta bold)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+  st = status -sb
 [help]
   autocorrect = 1
 [color]
   ui = true
-[core]
-  excludesfile = ~/.gitignore
-  attributesfile = ~/.gitattributes
 [color "branch"]
   current = yellow reverse
   local = yellow
@@ -27,18 +25,6 @@
   untracked = cyan
 [merge]
   log = true
-[url "git@github.com:"]
-  insteadOf = "gh:"
-  pushInsteadOf = "github:"
-  pushInsteadOf = "git://github.com/"
-[url "git://github.com/"]
-  insteadOf = "github:"
-[url "git@gist.github.com:"]
-  insteadOf = "gst:"
-  pushInsteadOf = "gist:"
-  pushInsteadOf = "git://gist.github.com/"
-[url "git://gist.github.com/"]
-  insteadOf = "gist:"
 [push]
   default = tracking
 [diff]
@@ -47,4 +33,3 @@
   enabled = true
 [pull]
   rebase = false
-[credential]
