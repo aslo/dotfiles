@@ -2,14 +2,16 @@
 let mapleader = ","
 
 set nocompatible
+set cursorline
 
 " Required for background colors to work nicely in tmux
 set t_ut=
 
 " Syntax highlighting
-syntax enable
+syntax on
 set background=dark
 colorscheme hybrid
+set encoding=UTF-8
 
 " Tabs and spaces
 filetype plugin indent on
@@ -206,8 +208,10 @@ augroup END
 
 " NERDTree
 augroup nerd_tree
-  map <C-N> :NERDTree<CR>
+  map <C-N> :NERDTreeToggle<CR>
   let NERDTreeShowHidden=1
+  let g:NERDTreeDirArrowExpandable = ''
+  let g:NERDTreeDirArrowCollapsible = ''
 augroup END
 
 " Airline.vim {{{
@@ -225,11 +229,29 @@ augroup END
 
 " Syntastic.vim {{{
 augroup syntastic_config
-  autocmd!
-  let g:syntastic_error_symbol = '✗'
-  let g:syntastic_warning_symbol = '⚠'
+    autocmd!
+    let g:syntastic_error_symbol = 'x'
+    let g:syntastic_warning_symbol = '!'
+
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
 augroup END
 " }}}
+
+augroup vim_wiki
+    let g:vimwiki_list = [{'path': '~/vimwiki/',
+                          \ 'syntax': 'markdown', 'ext': '.md'}]
+    let g:vimwiki_global_ext = 0 " make sure vimwiki doesn't own all .md files
+augroup END
+
+" Rust.vim
+let g:rustfmt_autosave = 1
 
 " Plugins -------------------------------------------------------------
 
@@ -239,8 +261,11 @@ call plug#begin('~/.vim/plugged')
 Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
+Plug 'preservim/nerdtree'
+Plug 'vim-syntastic/syntastic'
+
+" Language-specific
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 " }}}
